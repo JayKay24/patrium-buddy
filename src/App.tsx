@@ -1,24 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+const team = require('./team.json');
+
 function App() {
+  const [buddy, setBuddy] = useState<any>(null);
+  const [department, setDepartment] = useState('Engineering');
+
+  function getABuddy(): any {
+    const randomBuddy = team[Math.floor(Math.random() * team.length)];
+    if (randomBuddy.department === department) {
+      return setBuddy(randomBuddy);
+    } else {
+      return getABuddy();
+    }
+  }
+
+  function handleSelect(e: any) {
+    setDepartment(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section>
+        <div className="form-group">
+          <label htmlFor="department">Department</label>
+          <select id="department" value={department} onChange={handleSelect}>
+            <option value="Engineering">Engineering</option>
+            <option value="Finance">Finance</option>
+            <option value="Research">Research</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Legal">Legal</option>
+            <option value="Administration">Administration</option>
+          </select>
+        </div>
+        <button onClick={getABuddy}>Get a buddy</button>
+
+        {buddy &&
+          <div className="buddy">
+            <div className="buddy-title">Your Patrium buddy is:</div>
+            <div className="buddy-details">
+              <h3 className="buddy-name">{buddy.name}</h3>
+              <p className="buddy-email">{buddy.email}</p>
+              <p className="buddy-department">{buddy.department}</p>
+            </div>
+          </div>
+        }
+      </section>
     </div>
   );
 }
