@@ -3,8 +3,22 @@ import './App.css';
 
 const team = require('./team.json');
 
+interface IBuddy {
+  ix: number;
+  isActive: boolean;
+  picture: string;
+  dob: string;
+  age: string;
+  name: string;
+  gender: string;
+  department: string;
+  id: string;
+  email: string;
+  username: string;
+}
+
 function App() {
-  const [buddy, setBuddy] = useState<any>(null);
+  const [buddy, setBuddy] = useState<IBuddy | null>(null);
   const [department, setDepartment] = useState('Engineering');
 
   function getABuddy(): any {
