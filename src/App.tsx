@@ -46,9 +46,8 @@ function App() {
           buddy: randomBuddy 
         }
       });
-    } else {
-      return getABuddy();
     }
+    return getABuddy();
   }
 
   function handleSelect(e: any) {
