@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-
-const team = require('./team.json');
 
 interface IBuddy {
   ix: number;
@@ -20,6 +18,20 @@ interface IBuddy {
 function App() {
   const [buddy, setBuddy] = useState<IBuddy | null>(null);
   const [department, setDepartment] = useState('Engineering');
+
+  const [team, setTeam] = useState<IBuddy[]>([]);
+  useEffect(() => {
+    const fetchTeam = () => {
+      fetch('./team.json').then((response) => {
+        return response.json();
+      }).then((data) => {
+        setTeam(data);
+      }).catch((e: Error) => {
+        console.log(e.message);
+      })
+    };
+    fetchTeam();
+  });
 
   function getABuddy(): any {
     const randomBuddy = team[Math.floor(Math.random() * team.length)];
