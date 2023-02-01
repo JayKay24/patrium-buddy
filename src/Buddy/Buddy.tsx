@@ -12,39 +12,18 @@ const initialState: InitialState = {
   buddy: null,
   fetching: false,
   success: false,
-  error: true,
+  error: false,
   team: []
 };
 
 export function Buddy({ department }: PropTypes) {
   const [state, dispatch] = useReducer<ReducerType>(rootReducer, initialState);
 
-  useEffect(() => {
-    const fetchTeam = () => {
-      dispatch({ type: ActionNames.SET_FETCHING });
-      fetch('./team.json')
-      .then((response) => {
-        return response.json();
-      }).then((team: IBuddy[]) => {
-        dispatch({ 
-          type: ActionNames.SET_TEAM,
-          payload: {
-            team
-          }
-        });
-        dispatch({ type: ActionNames.SET_SUCCESS });
-      }).catch((e: Error) => {
-        dispatch({ type: ActionNames.SET_ERROR });
-      })
-    };
-    fetchTeam();
-  }, [dispatch]);
-
   function getABuddy(): any {
     const randomBuddy = state.team[Math.floor(Math.random() * state.team.length)] as IBuddy;
     if (randomBuddy.department === department) {
       return dispatch({ 
-        type: ActionNames.SET_BUDDY, 
+        type: ActionNames.SET_BUDDY,
         payload: { 
           buddy: randomBuddy 
         }
@@ -53,9 +32,45 @@ export function Buddy({ department }: PropTypes) {
     return getABuddy();
   }
 
+  async function handleGetABuddy() {
+    dispatch({ type: ActionNames.SET_FETCHING });
+  }
+
+  if(state.fetching) {
+    if(state.team.length === 0) {
+      fetch('./team.json')
+      .then((response) => {
+        return response.json();
+      }).then((team: IBuddy[]) => {
+        dispatch({
+          type: ActionNames.SET_TEAM,
+          payload: {
+            team
+          }
+        });
+        dispatch({ type: ActionNames.SET_SUCCESS });
+      }).catch((e: Error) => {
+        dispatch({ type: ActionNames.SET_ERROR });
+      });
+    } else {
+      dispatch({ type: ActionNames.SET_SUCCESS });
+    }
+  }
+
+  if(state.success) {
+    getABuddy();
+    dispatch({ 
+      type: ActionNames.SET_SUCCESS,
+      payload: {
+        success: false
+      }
+    });
+  }
+
   return (
     <>
-      <button onClick={getABuddy}>Get a buddy</button>
+      {/* <button onClick={getABuddy}>Get a buddy</button> */}
+      <button onClick={handleGetABuddy}>Get a buddy</button>
       {
         state.buddy &&
           <div className="buddy">

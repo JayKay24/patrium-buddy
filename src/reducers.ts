@@ -25,7 +25,7 @@ export function rootReducer(
       case ActionNames.SET_FETCHING:
         return { ...state, fetching: true, success: false, error: false };
       case ActionNames.SET_SUCCESS:
-        return { ...state, success: true, fetching: false, error: false };
+        return { ...state, success: action.payload?.success ?? true, fetching: false, error: false };
       default:
         return state;
     }

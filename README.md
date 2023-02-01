@@ -1,5 +1,7 @@
 # Patrium Buddy
 
+This is an application that randomizes the allocation of a buddy for a new team member joining Patrium Health.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
