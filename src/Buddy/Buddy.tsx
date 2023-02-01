@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { InitialState, IBuddy } from '../interfaces';
 import { ActionNames } from '../actions';
 import { ReducerType, rootReducer } from '../reducers';
