@@ -69,7 +69,6 @@ export function Buddy({ department }: PropTypes) {
 
   return (
     <>
-      {/* <button onClick={getABuddy}>Get a buddy</button> */}
       <button onClick={handleGetABuddy}>Get a buddy</button>
       {
         state.buddy &&

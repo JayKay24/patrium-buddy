@@ -1,5 +1,5 @@
 import { Department } from "./Department";
-import { render, fireEvent, screen } from "../helpers/test-utils";
+import { render, screen } from "../helpers/test-utils";
 
 const renderDepartment = (props = {}) => {
   render(<Department department="Engineering" setDepartment={() => {}} {...props} />)
