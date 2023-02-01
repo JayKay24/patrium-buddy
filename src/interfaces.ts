@@ -14,7 +14,6 @@ export interface IBuddy {
 
 export interface InitialState {
   buddy: IBuddy | null;
-  department: string;
   fetching: boolean;
   success: boolean;
   error: boolean;

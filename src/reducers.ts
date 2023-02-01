@@ -20,8 +20,6 @@ export function rootReducer(
         return { ...state, team: action.payload?.team ?? [] };
       case ActionNames.SET_BUDDY:
         return { ...state, buddy: action.payload?.buddy ?? null };
-      case ActionNames.SET_DEPARTMENT:
-        return { ...state, department: action.payload?.department ?? 'Engineering' };
       case ActionNames.SET_ERROR:
         return { ...state, error: true, success: false, fetching: false };
       case ActionNames.SET_FETCHING:
